@@ -10,27 +10,33 @@
     font-weight: 600;
   }
 
-  .vira-logo {
-    width: 100%;
-    padding-top: 30px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    .vira-text {
-      width: 100%;
-      text-align: center;
-      color: white;
-      margin-top: 20px;
-      font-size: 2.75rem;
-      font-weight: 700;
-      letter-spacing: 5px;
-    }
-  }
-
   .step {
     min-height: 30vh;
     margin-top: 30px;
+
+    .phrases {
+      background: #6885a0;
+      width: 100%;
+      display: flex;
+      padding: 10px;
+      border-radius: 15px;
+      box-sizing: border-box;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: center;
+
+      .phrase {
+        width: 30%;
+        color: white;
+        background: #708eae;
+        margin: 1%;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        font-size: 0.6rem;
+        font-weight: 600;
+      }
+    }
 
     .step-title {
       text-align: center;

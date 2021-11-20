@@ -1,0 +1,19 @@
+.login {
+  padding: 30px 50px;
+
+  .profile {
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background: #89c7f3;
+    font-size: 75px;
+    font-weight: 900;
+    border-radius: 75px;
+    margin: 20px 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}

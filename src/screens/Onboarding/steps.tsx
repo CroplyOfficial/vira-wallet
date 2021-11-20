@@ -8,10 +8,11 @@ interface StepProps {
 
 interface Step1Props extends StepProps {
   profileName: string;
+  isCreating: boolean;
   setProfileName: (profile: string) => void;
 }
 const Step1: React.FC<Step1Props> = (props: Step1Props) => {
-  const { profileName, setProfileName, nextStep } = props;
+  const { isCreating, profileName, setProfileName, nextStep } = props;
 
   return (
     <React.Fragment>
@@ -19,15 +20,20 @@ const Step1: React.FC<Step1Props> = (props: Step1Props) => {
       <div className="step-text">
         You can create multiple Identity accounts, to maintain separate business
         and personal records. Let’s start with your first Identity name. You may
-        add more later.
+        add more later. It might take a few seconds to create your identity.
       </div>
       <InputField
         value={profileName}
         placeholder="Profile Name"
         setValue={setProfileName}
       />
-      <button className="step-button" onClick={() => nextStep()}>
-        create new identity
+      <button
+        className="step-button"
+        disabled={isCreating}
+        onClick={() => nextStep()}
+        style={{ background: `${isCreating ? "#81A1B8" : "#6D97B5"}` }}
+      >
+        {isCreating ? "creating identity" : "create new identity"}
       </button>
     </React.Fragment>
   );
@@ -130,4 +136,46 @@ const Step5: React.FC<StepProps> = (props: StepProps) => {
   );
 };
 
-export { Step1, Step2, Step3, Step4, Step5 };
+interface Step6Props extends StepProps {
+  mnemonic: string[];
+}
+
+const Step6: React.FC<Step6Props> = (props: Step6Props) => {
+  const { nextStep, mnemonic } = props;
+  return (
+    <React.Fragment>
+      <div className="step-title">Your recovery phrase</div>
+      <div className="step-text">
+        In your recovery kit, write down the words in the exact order shown. It
+        is important to have a written backup, computers often fail, and files
+        can corrupt.
+      </div>
+      <div className="phrases">
+        {mnemonic.map((word: string, index: number) => (
+          <div key={index} className="phrase">{`${index + 1}. ${word}`}</div>
+        ))}
+      </div>
+      <button className="step-button" onClick={() => nextStep()}>
+        continue
+      </button>
+    </React.Fragment>
+  );
+};
+
+const Step7: React.FC<StepProps> = (props: StepProps) => {
+  const { nextStep } = props;
+  return (
+    <React.Fragment>
+      <div className="step-title">YOUR IDENTITY IS READY</div>
+      <div className="step-text">
+        Your identity is now ready. Feel free to explore your new wallet. Press
+        continue to enter your new wallet
+      </div>
+      <button className="step-button" onClick={() => nextStep()}>
+        continue
+      </button>
+    </React.Fragment>
+  );
+};
+
+export { Step1, Step2, Step3, Step4, Step5, Step6, Step7 };

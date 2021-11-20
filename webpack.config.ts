@@ -17,6 +17,10 @@ const webpackConfig = (): Configuration => ({
     alias: {
       "react-native-svg": "react-native-svg-web",
     },
+    fallback: {
+      crypto: require.resolve("crypto-browserify"),
+      stream: require.resolve("stream-browserify"),
+    },
   },
   output: {
     path: path.join(__dirname, "/build"),

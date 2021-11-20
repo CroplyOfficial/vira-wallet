@@ -12,3 +12,42 @@ body {
 
   overflow-x: hidden;
 }
+
+.vira-button {
+  padding: 10px 20px;
+  background: #6d97b5;
+  width: 100%;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-sizing: border-box;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.vira-logo {
+  width: 100%;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .vira-text {
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    font-size: 2.75rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+  }
+}

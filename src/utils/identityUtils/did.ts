@@ -3,7 +3,7 @@ import { Bip39, Ed25519Seed } from "@iota/iota.js";
 import bs58 from "bs58";
 
 const createIdentity = async () => {
-  await identity.init("http://localhost:3000/identity_wasm_bg.wasm");
+  await identity.init();
 
   const mnemonic = Bip39.randomMnemonic();
   const baseSeed = Ed25519Seed.fromMnemonic(mnemonic);
