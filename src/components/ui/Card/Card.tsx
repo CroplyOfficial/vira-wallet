@@ -10,10 +10,8 @@ export const Card: React.FC<ICardProps> = ({
   extend,
 }: ICardProps) => {
   return (
-    <div className="container">
-      <div className={`vira-card ${extend && "vira-card-extended"}`}>
-        {children}
-      </div>
+    <div className={`vira-card ${extend && "vira-card-extended"}`}>
+      {children}
     </div>
   );
 };

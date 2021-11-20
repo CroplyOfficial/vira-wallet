@@ -1,0 +1,33 @@
+.verifiable-cred {
+  display: flex;
+  align-items: center;
+
+  .vc-icon {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #dc8080;
+    border-radius: 25px;
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  .vc-data {
+    width: calc(100% - 100px);
+    margin-left: 20px;
+    margin-right: 10px;
+
+    .vc-issuer {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: #89c7f3;
+    }
+
+    .vc-type {
+      font-weight: 900;
+    }
+  }
+}
