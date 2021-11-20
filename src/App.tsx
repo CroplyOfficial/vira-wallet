@@ -5,6 +5,7 @@ import { Login } from "./screens/Login/Login";
 import { Buffer } from "buffer";
 import { readFile } from "./utils/systemUtils/filesystem";
 import { IUser } from "./types/user.interface";
+import { TopBar } from "./components/ui/TopBar/TopBar";
 global.Buffer = Buffer;
 
 const App: React.FC = () => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
+      {isLoggedIn && <TopBar user={userInfo} />}
       <Routes>
         <Route
           path="/"
