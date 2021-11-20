@@ -6,6 +6,8 @@ import { Buffer } from "buffer";
 import { readFile } from "./utils/systemUtils/filesystem";
 import { IUser } from "./types/user.interface";
 import { TopBar } from "./components/ui/TopBar/TopBar";
+import { NavBar } from "./components/ui/NavBar/NavBar";
+import { Dashboard } from "./screens/NavStack/Dashboard/Dashboard";
 global.Buffer = Buffer;
 
 const App: React.FC = () => {
@@ -33,7 +35,7 @@ const App: React.FC = () => {
           path="/"
           element={
             isLoggedIn ? (
-              <div>logged</div>
+              <Dashboard />
             ) : userExists ? (
               <Login setLoggedIn={setLoggedIn} userInfo={userInfo} />
             ) : (
@@ -42,6 +44,7 @@ const App: React.FC = () => {
           }
         />
       </Routes>
+      {isLoggedIn && <NavBar />}
     </React.Fragment>
   );
 };

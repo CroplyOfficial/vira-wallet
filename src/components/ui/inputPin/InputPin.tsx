@@ -1,5 +1,5 @@
 import ReactPinField from "react-pin-field";
-import React from "react";
+import React, { useRef } from "react";
 import "./inputPin.scss";
 
 interface IPinProps {
@@ -9,6 +9,20 @@ interface IPinProps {
 
 export const InputPin = (props: IPinProps) => {
   const { pin, setPin } = props;
+  const pinRef = useRef();
+
+  const handlePinChange = () => {
+    const pinArr = [];
+    for (let i = 0; i < 6; i++) {
+      // @ts-ignore
+      if (Number(pinRef.current.children[i].value)) {
+        // @ts-ignore
+        pinArr.push(pinRef.current.children[i].value);
+      }
+    }
+    const pinEntered = Number(pinArr.join(""));
+    setPin(pinEntered);
+  };
 
   return (
     <div className="input-pin">
@@ -17,7 +31,8 @@ export const InputPin = (props: IPinProps) => {
         validate="123456788"
         length={6}
         type="password"
-        onChange={(e: any) => setPin(Number(e.target.value))}
+        ref={pinRef}
+        onChange={handlePinChange}
       ></ReactPinField>
     </div>
   );

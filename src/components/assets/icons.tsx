@@ -10,7 +10,7 @@ export const Home: React.FC<SvgProps> = (props: SvgProps) => {
     <Svg width={51} height={56} viewBox="0 0 51 56" fill="none" {...props}>
       <Path
         d="M3 21.243a3 3 0 011.21-2.407L25.5 3l21.29 15.836A3 3 0 0148 21.243V50.5a2.5 2.5 0 01-2.5 2.5H33.25a1 1 0 01-1-1V36.455a.5.5 0 00-.5-.5h-12.5a.5.5 0 00-.5.5V52a1 1 0 01-1 1H5.5A2.5 2.5 0 013 50.5V21.243z"
-        stroke={props.color}
+        stroke={props.color ?? "white"}
         strokeWidth={5}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -27,7 +27,7 @@ export const Scan: React.FC<SvgProps> = (props: SvgProps) => {
         cy={22.5}
         rx={20.167}
         ry={19.708}
-        stroke={props.color}
+        stroke={props.color ?? "white"}
         strokeWidth={5}
       />
       <Path
@@ -48,37 +48,37 @@ export const Profiles: React.FC<SvgProps> = (props: SvgProps) => {
         cx={32.07}
         cy={10.13}
         r={8.13}
-        stroke={props.color}
+        stroke={props.color ?? "white"}
         strokeWidth={4}
       />
       <Circle
         cx={51.532}
         cy={10.13}
         r={5.737}
-        stroke={props.color}
+        stroke={props.color ?? "white"}
         strokeWidth={4}
       />
       <Circle
         cx={12.608}
         cy={10.13}
         r={5.737}
-        stroke={props.color}
+        stroke={props.color ?? "white"}
         strokeWidth={4}
       />
       <Path
         d="M10.318 35.158a2 2 0 10.593-3.955l-.593 3.955zm-.552-2.115l-.345 1.97.345-1.97zm1.145-1.84a32.98 32.98 0 01-.8-.13l-.69 3.94c.29.05.59.1.897.145l.593-3.955zm-6.195-8.784c.29-.982 1.212-1.878 2.927-2.552 1.681-.66 3.78-.958 5.683-.958v-4c-2.245 0-4.87.341-7.146 1.236-2.243.881-4.51 2.459-5.301 5.145l3.837 1.129zm8.61-3.51c2.146 0 3.592.016 4.875.397 1.165.345 2.308 1.033 3.607 2.673l3.136-2.482c-1.732-2.189-3.54-3.415-5.606-4.027-1.946-.576-4.01-.56-6.012-.56v4zm-3.214 12.164c-4.027-.706-6.545-4.747-5.396-8.654L.88 21.29c-1.827 6.212 2.18 12.608 8.542 13.723l.69-3.94z"
-        fill={props.color}
+        fill={props.color ?? "white"}
       />
       <Path
         d="M40.797 39.98c-5.73 1.504-13.483 1.309-18.693-.35-4.034-1.283-5.648-5.643-4.954-9.818.63-3.783 2.268-8.057 6.385-9.234 4.08-1.165 6.232-.943 8.774-.957 2.33-.013 5.036-.372 8.774.957 3.55 1.263 5.19 4.602 5.925 7.873 1.122 4.993-1.26 10.23-6.211 11.53z"
-        stroke={props.color}
+        stroke={props.color ?? "white"}
         strokeWidth={4}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
         d="M53.982 35.158a2 2 0 11-.593-3.955l.593 3.955zm-.593-3.955c.275-.041.541-.085.799-.13l.69 3.94c-.29.05-.589.1-.896.145l-.593-3.955zm6.194-8.784c-.289-.982-1.212-1.878-2.926-2.552-1.682-.66-3.78-.958-5.684-.958v-4c2.245 0 4.871.341 7.147 1.236 2.243.881 4.51 2.459 5.3 5.145l-3.837 1.129zm-8.61-3.51c-2.146 0-3.591.016-4.875.397-1.164.345-2.308 1.033-3.606 2.673l-3.137-2.482c1.733-2.189 3.54-3.415 5.607-4.027 1.946-.576 4.01-.56 6.011-.56v4zm3.215 12.164c4.026-.706 6.544-4.747 5.395-8.654l3.837-1.129c1.827 6.212-2.18 12.608-8.542 13.723l-.69-3.94z"
-        fill={props.color}
+        fill={props.color ?? "white"}
       />
     </Svg>
   );
@@ -92,7 +92,7 @@ export const Settings: React.FC<SvgProps> = (props: SvgProps) => {
       viewBox="0 0 37 33"
       fill="none"
       {...props}
-      stroke={props.color}
+      stroke={props.color ?? "white"}
     >
       <Path
         d="M3.375 25.459h17.917M15.917 7.542h17.916"

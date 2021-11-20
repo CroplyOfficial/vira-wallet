@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  padding: 20px 10%;
+  box-sizing: border-box;
+}
+
+.vira-card {
+  padding: 20px;
+  border-radius: 10px;
+  background: #495f6f;
+}
+
+.vira-card-extended {
+  min-height: calc(100vh - 220px);
+}

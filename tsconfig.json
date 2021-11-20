@@ -3,7 +3,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "ESNext",
-    "removeComments": true,
+    "removeComments": false,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "allowJs": true,

@@ -4,6 +4,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Open Sans";
+  color: white;
 }
 
 #app {
@@ -32,6 +33,10 @@ body {
   &:hover {
     cursor: pointer;
   }
+}
+
+.vira-content {
+  padding: 20px;
 }
 
 .vira-logo {

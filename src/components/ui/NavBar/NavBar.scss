@@ -1,0 +1,23 @@
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  background: #465b69;
+  transform: translateY(15px);
+
+  .icon {
+    padding: 17.5px 12.5px;
+    transform: translateY(-8px);
+  }
+
+  .selected-icon {
+    background: #5d7586;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
