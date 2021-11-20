@@ -1,0 +1,43 @@
+.input-text {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid #ccd2d7;
+  border-radius: 30px;
+  background: #556a7a;
+  color: white;
+}
+
+.field {
+  width: 100%;
+  position: relative;
+  margin-top: 25px;
+  margin-right: 25px;
+}
+
+.field__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  transform-origin: 0 0;
+  transform: translate3d(20px, 10px, 0);
+  font-size: 16px;
+  line-height: 20px;
+  transition: transform 0.2s;
+  color: #ccd2d7;
+}
+
+.field__input {
+  appearance: none;
+}
+
+.field__input::placeholder {
+  color: transparent !important;
+  user-select: none !important;
+}
+.field__input:focus + .field__label,
+.field__input:not(:placeholder-shown) + .field__label {
+  transform: translate3d(10px, -90%, 0) scale(0.85);
+}

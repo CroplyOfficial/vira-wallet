@@ -1,0 +1,6 @@
+{
+	"appId": "tools.identity.vira",
+	"appName": "vira",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
