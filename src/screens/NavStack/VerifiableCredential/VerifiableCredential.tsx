@@ -32,12 +32,18 @@ export const VerifiableCredential: React.FC<IVerifiableCredProps> = (
       />
       <div className="issuer-logo">
         {/* @ts-ignore */}
-        {vc.credentialSubject.credIssuer[0].toUpperCase()}
+        {vc.credentialSubject["Credential Issuer"]
+          .split("//")[1][0]
+          .toUpperCase()}
       </div>
       {/* @ts-ignore */}
-      <div className="issuer-title">{vc.credentialSubject.credIssuer}</div>
+      <div className="issuer-title">
+        {vc.credentialSubject["Credential Issuer"].split("//")[1]}
+      </div>
       {/* @ts-ignore */}
-      <div className="cred-title">{vc.credentialSubject.credType}</div>
+      <div className="cred-title">
+        {vc.credentialSubject["Credential Type"]}
+      </div>
       {Object.keys(vc.credentialSubject).map((key, index) => (
         <div
           key={index}

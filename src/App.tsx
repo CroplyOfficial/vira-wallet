@@ -44,7 +44,7 @@ const App: React.FC = () => {
             )
           }
         />
-        <Route path={"/scan"} element={<Scan />} />
+        <Route path={"/scan"} element={<Scan user={userInfo} />} />
       </Routes>
       {isLoggedIn && <NavBar />}
     </React.Fragment>
