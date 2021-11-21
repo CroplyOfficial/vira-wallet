@@ -1,5 +1,7 @@
 .container {
   width: 100%;
   padding: 20px 10%;
+  height: calc(100vh - 160px);
+  overflow-y: hidden;
   box-sizing: border-box;
 }

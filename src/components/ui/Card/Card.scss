@@ -2,9 +2,11 @@
   margin: 10px 0;
   padding: 12.5px;
   border-radius: 10px;
+  position: relative;
   background: #495f6f;
 }
 
 .vira-card-extended {
-  min-height: calc(100vh - 220px);
+  height: calc(100vh - 220px);
+  overflow-y: auto;
 }
