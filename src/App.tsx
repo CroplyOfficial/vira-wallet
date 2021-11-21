@@ -8,6 +8,7 @@ import { IUser } from "./types/user.interface";
 import { TopBar } from "./components/ui/TopBar/TopBar";
 import { NavBar } from "./components/ui/NavBar/NavBar";
 import { Dashboard } from "./screens/NavStack/Dashboard/Dashboard";
+import { Scan } from "./screens/NavStack/Scan/Scan";
 global.Buffer = Buffer;
 
 const App: React.FC = () => {
@@ -43,6 +44,7 @@ const App: React.FC = () => {
             )
           }
         />
+        <Route path={"/scan"} element={<Scan />} />
       </Routes>
       {isLoggedIn && <NavBar />}
     </React.Fragment>

@@ -56,7 +56,7 @@ export const VerifiableCredential: React.FC<IVerifiableCredProps> = (
           )}
         </div>
       ))}
-      <div className="vira-button">share credential</div>
+      <div className="vira-button cred-share">share credential</div>
     </Card>
   );
 };
