@@ -89,6 +89,23 @@ export const Scan = (user: any) => {
                 {result.vc.id.split("//")[1].split("/")[0]}
               </div>
               <div className="cred-title">{result.vc.type[1]}</div>
+              <div className="domain-result">
+                {result.result.DVID ? (
+                  <>
+                    <div className="domain" style={{ color: "#91C69D" }}>
+                      {result.vc.id.split("//")[1].split("/")[0]}
+                    </div>
+                    <TickInCircle height={20} width={20} color="#91C69D" />
+                  </>
+                ) : (
+                  <>
+                    <div className="domain" style={{ color: "#DC8080" }}>
+                      {result.vc.id.split("//")[1].split("/")[0]}
+                    </div>
+                    <CrossInCircle height={20} width={20} color="#DC8080" />
+                  </>
+                )}
+              </div>
               {Object.keys(result.vc.credentialSubject).map((key, index) => (
                 <div key={index} className="cred-prop">
                   <div className="cred-prop-data">
