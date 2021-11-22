@@ -92,17 +92,17 @@ export const Scan = (user: any) => {
               <div className="domain-result">
                 {result.result.DVID ? (
                   <>
+                    <TickInCircle height={20} width={20} color="#91C69D" />
                     <div className="domain" style={{ color: "#91C69D" }}>
                       {result.vc.id.split("//")[1].split("/")[0]}
                     </div>
-                    <TickInCircle height={20} width={20} color="#91C69D" />
                   </>
                 ) : (
                   <>
+                    <CrossInCircle height={20} width={20} color="#DC8080" />
                     <div className="domain" style={{ color: "#DC8080" }}>
                       {result.vc.id.split("//")[1].split("/")[0]}
                     </div>
-                    <CrossInCircle height={20} width={20} color="#DC8080" />
                   </>
                 )}
               </div>
