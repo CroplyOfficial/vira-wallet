@@ -2,11 +2,26 @@ import React, { useState, useEffect } from "react";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import axios from "axios";
 import { readFile, writeFile } from "../../../utils/systemUtils/filesystem";
+import socket from "socket.io-client";
+import { share_service } from "../../../config";
+import { Container } from "../../../components/ui/Container/Container";
+import { Card } from "../../../components/ui/Card/Card";
+import { TickInCircle, CrossInCircle } from "../../../components/assets/icons";
+import "../VerifiableCredential/VerifiableCredential.scss";
 
 export const Scan = (user: any) => {
-  const [data, setData] = useState<any>("to scan");
+  const [result, setResult] = useState<any>();
+  const [verifying, setVerifying] = useState<boolean>(false);
 
-  console.log(user.user.doc.id);
+  const joinSocket = (roomId: string) => {
+    const sock = socket(share_service, { query: { roomId } });
+    sock.emit("enter", "enter");
+    setVerifying(() => true);
+    sock.on("shareCred", (data) => {
+      setVerifying(() => false);
+      setResult(() => data);
+    });
+  };
 
   const startScan = async () => {
     const result = await BarcodeScanner.scan({
@@ -46,15 +61,63 @@ export const Scan = (user: any) => {
         const endpoints = [{ api: scan.api, token: scan.token }];
         await writeFile(JSON.stringify(endpoints), "endpoints");
       }
+    } else if (scan.type === "vcShare") {
+      joinSocket(scan.roomId);
     }
   };
 
   return (
-    <div className="scan">
-      <div className="data">{data}</div>
-      <button className="vira-button" onClick={startScan}>
-        START SCAN
-      </button>
-    </div>
+    <Container>
+      <div className="scan">
+        {!verifying && !result ? (
+          <Card>
+            <button className="vira-button" onClick={startScan}>
+              START SCAN
+            </button>
+          </Card>
+        ) : !result && verifying ? (
+          <Card extend={true}>
+            <h2 style={{ textAlign: "center" }}>Verifying...</h2>
+          </Card>
+        ) : !verifying && result ? (
+          <Card extend={true}>
+            <React.Fragment>
+              <div className="issuer-logo">
+                {result.vc.id.split("//")[1][0].toUpperCase()}
+              </div>
+              <div className="issuer-title">
+                {result.vc.id.split("//")[1].split("/")[0]}
+              </div>
+              <div className="cred-title">{result.vc.type[1]}</div>
+              {Object.keys(result.vc.credentialSubject).map((key, index) => (
+                <div key={index} className="cred-prop">
+                  <div className="cred-prop-data">
+                    <div className="property">{key}</div>
+                    <div className="value">
+                      {result.vc.credentialSubject[key]}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="result">
+                {result.result.VC && result.result.DVID ? (
+                  <>
+                    <TickInCircle color="#91C69D" />
+                    <h3 style={{ color: "#91C69D" }}>Verified</h3>
+                  </>
+                ) : (
+                  <>
+                    <CrossInCircle color="#DC8080" />
+                    <h3 style={{ color: "#DC8080" }}>Unverified</h3>
+                  </>
+                )}
+              </div>
+            </React.Fragment>
+          </Card>
+        ) : (
+          <div></div>
+        )}
+      </div>
+    </Container>
   );
 };

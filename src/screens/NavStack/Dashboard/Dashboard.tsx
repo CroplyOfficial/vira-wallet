@@ -34,7 +34,7 @@ export const Dashboard = () => {
       if (credsMeta) {
         const storedCreds = JSON.parse(credsMeta.data);
         for (const cred of credentials) {
-          if (!storedCreds.includes(cred)) {
+          if (!storedCreds.find((stored_cred) => cred.id === stored_cred.id)) {
             storedCreds.push(cred);
           }
           await writeFile(JSON.stringify(storedCreds), "certificates");
