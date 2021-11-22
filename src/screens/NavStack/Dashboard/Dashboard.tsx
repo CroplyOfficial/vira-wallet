@@ -14,39 +14,37 @@ export const Dashboard = () => {
   const checkCredentials = async () => {
     const endpointsMeta = await readFile("endpoints").catch(() => null);
     const credsMeta = await readFile("certificates").catch(() => null);
+    const credentials = [];
+
+    if (credsMeta) {
+      console.log("credsmeta", credsMeta);
+      const storedCreds = JSON.parse(credsMeta.data);
+      for (const cred of credentials) {
+        if (!storedCreds.find((stored_cred) => cred.id === stored_cred.id)) {
+          storedCreds.push(cred);
+        }
+        await writeFile(JSON.stringify(storedCreds), "certificates");
+      }
+      setVerifiableCreds(() => storedCreds);
+    }
     if (endpointsMeta) {
+      console.log("here???");
       const endpoints = JSON.parse(endpointsMeta.data);
-      const credentials = [];
       for await (const endpoint of endpoints) {
-        const credsReceived = await axios.get(
-          `${endpoint.api}/api/applications/@me/current`,
-          {
+        const credsReceived = await axios
+          .get(`${endpoint.api}/api/applications/@me/current`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${endpoint.token}`,
             },
+          })
+          .catch(() => null);
+        if (credsReceived) {
+          for (const cred of credsReceived.data) {
+            if (cred.vc) credentials.push(cred.vc);
           }
-        );
-        for (const cred of credsReceived.data) {
-          if (cred.vc) credentials.push(cred.vc);
         }
       }
-      if (credsMeta) {
-        const storedCreds = JSON.parse(credsMeta.data);
-        for (const cred of credentials) {
-          if (!storedCreds.find((stored_cred) => cred.id === stored_cred.id)) {
-            storedCreds.push(cred);
-          }
-          await writeFile(JSON.stringify(storedCreds), "certificates");
-        }
-        setVerifiableCreds(() => storedCreds);
-      } else {
-        await writeFile(JSON.stringify(credentials), "certificates");
-        setVerifiableCreds(() => credentials);
-      }
-    } else if (credsMeta) {
-      const storedCreds = JSON.parse(credsMeta.data);
-      setVerifiableCreds(() => storedCreds);
     }
   };
 
