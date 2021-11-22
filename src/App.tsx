@@ -10,6 +10,7 @@ import { NavBar } from "./components/ui/NavBar/NavBar";
 import { Dashboard } from "./screens/NavStack/Dashboard/Dashboard";
 import { Scan } from "./screens/NavStack/Scan/Scan";
 import { Profiles } from "./screens/NavStack/Profiles/Profiles";
+import { Settings } from "./screens/NavStack/Settings/Settings";
 global.Buffer = Buffer;
 
 const App: React.FC = () => {
@@ -47,6 +48,7 @@ const App: React.FC = () => {
         />
         <Route path={"/scan"} element={<Scan user={userInfo} />} />
         <Route path={"/profiles"} element={<Profiles />} />
+        <Route path={"/settings"} element={<Settings />} />
       </Routes>
       {isLoggedIn && <NavBar />}
     </React.Fragment>
