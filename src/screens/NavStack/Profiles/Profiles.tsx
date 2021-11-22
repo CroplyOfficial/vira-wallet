@@ -3,6 +3,7 @@ import { SampleProfiles } from "../../../data/profiles.sample";
 import { Container } from "../../../components/ui/Container/Container";
 import { Card } from "../../../components/ui/Card/Card";
 import { ChevronRight } from "../../../components/assets/icons";
+import "./Profiles.scss";
 
 export const Profiles = () => {
   return (
