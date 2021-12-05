@@ -6,12 +6,14 @@ import { ScanQR } from "./ProfileComponents/ScanQR";
 import { SetupAccount } from "./ProfileComponents/SetupAccount";
 import { isInternalOnly } from "../../../config";
 import { writeFile, readFile } from "../../../utils/systemUtils/filesystem";
+import { ProfilesList } from "./ProfileComponents/ProfilesList";
+import { SampleProfiles } from "../../../data/profiles.sample";
 import axios from "axios";
 import "./Profiles.scss";
 
 export const Profiles = () => {
   const navigate = useNavigate();
-  const [isConfigured, setConfigured] = useState<boolean>(false);
+  const [isConfigured, setConfigured] = useState<boolean>(true);
   const [isConfiguring, setConfiguring] = useState<boolean>(false);
   const [scanData, setScanData] = useState<Record<string, unknown>>();
   const [username, setUsername] = useState<string>();
@@ -55,7 +57,7 @@ export const Profiles = () => {
 
   useEffect(() => {
     const checkForConfig = async () => {
-      const config = await readFile("cloudvault").catch(() => {});
+      const config = await readFile("cloudvault").catch(() => null);
       if (config) {
         setConfigured(() => true);
       }
@@ -67,7 +69,7 @@ export const Profiles = () => {
   return (
     <Container>
       {isConfigured ? (
-        <React.Fragment></React.Fragment>
+        <ProfilesList profiles={SampleProfiles} />
       ) : (
         <React.Fragment>
           {isConfiguring ? (
