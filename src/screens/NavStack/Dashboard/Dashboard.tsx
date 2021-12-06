@@ -16,6 +16,7 @@ export const Dashboard = () => {
 
   const checkCredentials = async () => {
     const endpointsMeta = await readFile("endpoints").catch(() => null);
+    console.log(endpointsMeta);
     const credsMeta = await readFile("certificates").catch(() => null);
     if (credsMeta) {
       console.log("credsmeta", credsMeta);

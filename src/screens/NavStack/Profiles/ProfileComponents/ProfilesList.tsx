@@ -11,16 +11,17 @@ export const ProfilesList = (props: IProfilesListProps) => {
   const { profiles, setIsAdding } = props;
 
   return (
-    <React.Fragment>
-      {profiles.map((profile: IProfileType, index: number) => (
-        <Card key={index}>
-          <div className="profile-item">
-            <div className="profile-icon">{profile.name[0]}</div>
-            <div className="profile-name">{profile.name}</div>
-            <ChevronRight color={"white"} />
-          </div>
-        </Card>
-      ))}
+    <div className="profile-list">
+      {profiles &&
+        profiles.map((profile: IProfileType, index: number) => (
+          <Card key={index}>
+            <div className="profile-item">
+              <div className="profile-icon">{profile.name[0]}</div>
+              <div className="profile-name">{profile.name}</div>
+              <ChevronRight color={"white"} />
+            </div>
+          </Card>
+        ))}
       <button
         className="vira-button"
         style={{ width: "60vw", marginLeft: "10vw" }}
@@ -28,6 +29,6 @@ export const ProfilesList = (props: IProfilesListProps) => {
       >
         + new profile
       </button>
-    </React.Fragment>
+    </div>
   );
 };

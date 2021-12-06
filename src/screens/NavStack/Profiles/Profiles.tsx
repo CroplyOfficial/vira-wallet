@@ -7,15 +7,16 @@ import { SetupAccount } from "./ProfileComponents/SetupAccount";
 import { isInternalOnly } from "../../../config";
 import { writeFile, readFile } from "../../../utils/systemUtils/filesystem";
 import { ProfilesList } from "./ProfileComponents/ProfilesList";
-import { SampleProfiles } from "../../../data/profiles.sample";
 import { NewProfile } from "./ProfileComponents/NewProfile";
+import { IProfileType } from "../../../types/profile.interface";
 import axios from "axios";
 import "./Profiles.scss";
 
 export const Profiles = () => {
-  const [isConfigured, setConfigured] = useState<boolean>(true);
+  const [isConfigured, setConfigured] = useState<boolean>(false);
   const [isConfiguring, setConfiguring] = useState<boolean>(false);
   const [isAddingProfile, setAddingProfile] = useState<boolean>(false);
+  const [profiles, setProfiles] = useState<IProfileType[]>();
   const [scanData, setScanData] = useState<Record<string, unknown>>();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -62,6 +63,16 @@ export const Profiles = () => {
       if (config) {
         setConfigured(() => true);
       }
+
+      console.log(config);
+      const { url, token } = config;
+      const { data } = await axios.get(`${url}/api/profiles`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProfiles(() => data);
     };
 
     checkForConfig();
@@ -74,10 +85,7 @@ export const Profiles = () => {
           {isAddingProfile ? (
             <NewProfile setIsAdding={setAddingProfile} />
           ) : (
-            <ProfilesList
-              profiles={SampleProfiles}
-              setIsAdding={setAddingProfile}
-            />
+            <ProfilesList profiles={profiles} setIsAdding={setAddingProfile} />
           )}
         </React.Fragment>
       ) : (

@@ -25,8 +25,7 @@ export const NewProfile = (props: INewProfileProps) => {
       storedCreds = JSON.parse(credsMeta.data);
       console.log(storedCreds);
     }
-    // setVerifiableCreds(() => storedCreds);
-    setVerifiableCreds(() => VerifiableCreds);
+    setVerifiableCreds(() => storedCreds);
   };
 
   const handleCredToggle = (cred: any) => {
@@ -62,7 +61,7 @@ export const NewProfile = (props: INewProfileProps) => {
           value={profileName}
           setValue={setProfileName}
         />
-        <p>
+        <p className="profile-info">
           A new profile will be created. Save and continue to add credentials
           and assign domain permissions to your new profile.
         </p>

@@ -38,13 +38,15 @@
     margin-left: 40px;
   }
 
-  p {
+  .profile-info {
     text-align: center;
     color: #e5e5e5;
+    font-size: 0.725rem;
   }
 }
 
 .profile-creds {
+  margin-top: 20px;
   .profile-cred {
     display: flex;
     align-items: center;
