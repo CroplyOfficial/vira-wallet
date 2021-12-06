@@ -8,13 +8,14 @@ import { isInternalOnly } from "../../../config";
 import { writeFile, readFile } from "../../../utils/systemUtils/filesystem";
 import { ProfilesList } from "./ProfileComponents/ProfilesList";
 import { SampleProfiles } from "../../../data/profiles.sample";
+import { NewProfile } from "./ProfileComponents/NewProfile";
 import axios from "axios";
 import "./Profiles.scss";
 
 export const Profiles = () => {
-  const navigate = useNavigate();
   const [isConfigured, setConfigured] = useState<boolean>(true);
   const [isConfiguring, setConfiguring] = useState<boolean>(false);
+  const [isAddingProfile, setAddingProfile] = useState<boolean>(false);
   const [scanData, setScanData] = useState<Record<string, unknown>>();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -25,7 +26,7 @@ export const Profiles = () => {
       { username, password },
       { headers: { "Content-Type": "application/json" } }
     );
-    writeFile(JSON.stringify({ publicKey, ...data }), "cloudvault");
+    writeFile(JSON.stringify({ url, publicKey, ...data }), "cloudvault");
     setConfigured(() => true);
   };
 
@@ -69,7 +70,16 @@ export const Profiles = () => {
   return (
     <Container>
       {isConfigured ? (
-        <ProfilesList profiles={SampleProfiles} />
+        <React.Fragment>
+          {isAddingProfile ? (
+            <NewProfile setIsAdding={setAddingProfile} />
+          ) : (
+            <ProfilesList
+              profiles={SampleProfiles}
+              setIsAdding={setAddingProfile}
+            />
+          )}
+        </React.Fragment>
       ) : (
         <React.Fragment>
           {isConfiguring ? (

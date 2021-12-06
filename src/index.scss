@@ -56,3 +56,27 @@ body {
     letter-spacing: 5px;
   }
 }
+
+.vira-checkbox {
+  height: 14px;
+  width: 14px;
+  background-color: #495f6f;
+  border-radius: 8px;
+  border: 4px solid #8295a2;
+
+  .checked {
+    height: 10px;
+    width: 10px;
+    margin: 2px;
+    background: #91c69d;
+    border-radius: 2px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.vira-checked {
+  border-color: #89c7f3;
+}

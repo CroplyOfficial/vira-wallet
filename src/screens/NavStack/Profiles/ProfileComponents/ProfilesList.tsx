@@ -5,9 +5,10 @@ import { ChevronRight } from "../../../../components/assets/icons";
 
 interface IProfilesListProps {
   profiles: IProfileType[];
+  setIsAdding: (adding: boolean) => void;
 }
 export const ProfilesList = (props: IProfilesListProps) => {
-  const { profiles } = props;
+  const { profiles, setIsAdding } = props;
 
   return (
     <React.Fragment>
@@ -20,6 +21,13 @@ export const ProfilesList = (props: IProfilesListProps) => {
           </div>
         </Card>
       ))}
+      <button
+        className="vira-button"
+        style={{ width: "60vw", marginLeft: "10vw" }}
+        onClick={() => setIsAdding(true)}
+      >
+        + new profile
+      </button>
     </React.Fragment>
   );
 };
