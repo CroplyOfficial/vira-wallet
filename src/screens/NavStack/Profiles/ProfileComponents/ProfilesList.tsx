@@ -6,16 +6,17 @@ import { ChevronRight } from "../../../../components/assets/icons";
 interface IProfilesListProps {
   profiles: IProfileType[];
   setIsAdding: (adding: boolean) => void;
+  setSelected: (profile: IProfileType) => void;
 }
 export const ProfilesList = (props: IProfilesListProps) => {
-  const { profiles, setIsAdding } = props;
+  const { profiles, setIsAdding, setSelected } = props;
 
   return (
     <div className="profile-list">
       {profiles &&
         profiles.map((profile: IProfileType, index: number) => (
           <Card key={index}>
-            <div className="profile-item">
+            <div className="profile-item" onClick={() => setSelected(profile)}>
               <div className="profile-icon">{profile.name[0]}</div>
               <div className="profile-name">{profile.name}</div>
               <ChevronRight color={"white"} />

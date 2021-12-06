@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Container } from "../../../components/ui/Container/Container";
-import { useNavigate } from "react-router";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner";
 import { ScanQR } from "./ProfileComponents/ScanQR";
 import { SetupAccount } from "./ProfileComponents/SetupAccount";
@@ -8,14 +7,19 @@ import { isInternalOnly } from "../../../config";
 import { writeFile, readFile } from "../../../utils/systemUtils/filesystem";
 import { ProfilesList } from "./ProfileComponents/ProfilesList";
 import { NewProfile } from "./ProfileComponents/NewProfile";
-import { IProfileType } from "../../../types/profile.interface";
+import { ICredConfig, IProfileType } from "../../../types/profile.interface";
+import { ProfileView } from "./ProfileComponents/ProfileView";
+import { SampleProfiles } from "../../../data/profiles.sample";
 import axios from "axios";
 import "./Profiles.scss";
 
 export const Profiles = () => {
+  const [url, setUrl] = useState<string>();
+  const [appToken, setToken] = useState<string>();
   const [isConfigured, setConfigured] = useState<boolean>(false);
   const [isConfiguring, setConfiguring] = useState<boolean>(false);
   const [isAddingProfile, setAddingProfile] = useState<boolean>(false);
+  const [selectedProfile, setSelectedProfile] = useState<IProfileType>();
   const [profiles, setProfiles] = useState<IProfileType[]>();
   const [scanData, setScanData] = useState<Record<string, unknown>>();
   const [username, setUsername] = useState<string>();
@@ -45,6 +49,24 @@ export const Profiles = () => {
       : setAccount(`http://${publicAddr}:${port}`, publicKey);
   };
 
+  const updateProfileCredentials = async (cred: ICredConfig) => {
+    const creds = selectedProfile.creds.filter(
+      (profileCred) => cred.vc.id !== profileCred.vc.id
+    );
+    creds.push(cred);
+    const { data } = await axios.patch(
+      `${url}/api/profiles/${selectedProfile._id}`,
+      { creds },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${appToken}`,
+        },
+      }
+    );
+    checkProfiles();
+  };
+
   const startScan = async () => {
     const result = await BarcodeScanner.scan({
       prompt: "Place the QR code in the square",
@@ -57,22 +79,29 @@ export const Profiles = () => {
     }
   };
 
+  const checkProfiles = async () => {
+    const { data } = await axios.get(`${url}/api/profiles`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${appToken}`,
+      },
+    });
+    setProfiles(() => data);
+  };
+
   useEffect(() => {
     const checkForConfig = async () => {
-      const config = await readFile("cloudvault").catch(() => null);
+      const confMeta = await readFile("cloudvault").catch(() => null);
+      const config = JSON.parse(confMeta.data);
       if (config) {
         setConfigured(() => true);
       }
 
-      console.log(config);
       const { url, token } = config;
-      const { data } = await axios.get(`${url}/api/profiles`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setProfiles(() => data);
+      setUrl(() => url);
+      setToken(() => token);
+
+      checkProfiles();
     };
 
     checkForConfig();
@@ -83,9 +112,31 @@ export const Profiles = () => {
       {isConfigured ? (
         <React.Fragment>
           {isAddingProfile ? (
-            <NewProfile setIsAdding={setAddingProfile} />
+            <React.Fragment>
+              {url && (
+                <NewProfile
+                  token={appToken}
+                  url={url}
+                  setIsAdding={setAddingProfile}
+                />
+              )}
+            </React.Fragment>
           ) : (
-            <ProfilesList profiles={profiles} setIsAdding={setAddingProfile} />
+            <React.Fragment>
+              {selectedProfile ? (
+                <ProfileView
+                  profile={selectedProfile}
+                  setSelected={setSelectedProfile}
+                  updateProfile={updateProfileCredentials}
+                />
+              ) : (
+                <ProfilesList
+                  profiles={profiles}
+                  setIsAdding={setAddingProfile}
+                  setSelected={setSelectedProfile}
+                />
+              )}
+            </React.Fragment>
           )}
         </React.Fragment>
       ) : (

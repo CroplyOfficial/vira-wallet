@@ -3,22 +3,23 @@ import { Card } from "../../../../components/ui/Card/Card";
 import { InputField } from "../../../../components/ui/inputField/InputField";
 import { Back } from "../../../../components/assets/icons";
 import { readFile } from "../../../../utils/systemUtils/filesystem";
-import { VerifiableCreds } from "../../../../data/vc.sample";
 import { Checkbox } from "../../../../components/ui/Checkbox/Checkbox";
+import axios from "axios";
 
 let storedCreds = [];
 
 interface INewProfileProps {
   setIsAdding: (adding: boolean) => void;
+  url: string;
+  token: string;
 }
 export const NewProfile = (props: INewProfileProps) => {
-  const { setIsAdding } = props;
+  const { setIsAdding, url, token } = props;
   const [profileName, setProfileName] = useState<string>();
   const [verifiableCreds, setVerifiableCreds] = useState<any>();
   const [selectedCreds, setSelectedCreds] = useState<any[]>([]);
 
   const checkCredentials = async () => {
-    const endpointsMeta = await readFile("endpoints").catch(() => null);
     const credsMeta = await readFile("certificates").catch(() => null);
     if (credsMeta) {
       console.log("credsmeta", credsMeta);
@@ -40,7 +41,25 @@ export const NewProfile = (props: INewProfileProps) => {
   };
 
   const handleSave = async () => {
-    console.log(selectedCreds);
+    if (profileName) {
+      const creds = selectedCreds.map((vc) => {
+        const excluded = Object.keys(vc.credentialSubject);
+        return { vc, excluded };
+      });
+      const { data } = await axios.post(
+        `${url}/api/profiles`,
+        { name: profileName, creds },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (data) {
+        setIsAdding(false);
+      }
+    }
   };
 
   useEffect(() => {
