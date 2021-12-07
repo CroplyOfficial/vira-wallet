@@ -24,6 +24,13 @@
   }
 }
 
+.profile-edit {
+  top: 25px;
+  right: 20px;
+
+  position: absolute;
+}
+
 .new-profile {
   padding: 20px;
   position: relative;
@@ -33,12 +40,8 @@
     top: 24px;
   }
 
-  h2 {
-    margin: 0;
-    margin-left: 40px;
-  }
-
   .profile-info {
+    padding: 20px 0;
     text-align: center;
     color: #e5e5e5;
     font-size: 0.725rem;
@@ -50,6 +53,51 @@
   margin-top: 10px;
   width: calc(100% - 60px);
   margin-left: 30px;
+  padding-bottom: 20px;
+}
+
+.edit-profile {
+  .edit-section {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px solid #5d7586;
+
+    .section-header {
+      text-align: center;
+      padding-top: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .add-domain-button {
+      margin-top: 15px;
+      margin-bottom: 0;
+    }
+
+    .error {
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #dc8080;
+      font-size: 0.8rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .authorized-domain {
+      padding: 10px;
+      display: flex;
+      background-color: #5d7586;
+      margin: 10px 0;
+      border-radius: 10px;
+      align-items: center;
+
+      .domain-name {
+        width: calc(100% - 40px);
+        margin-right: 20px;
+        color: #ffffff;
+      }
+    }
+  }
 }
 
 .profile-header-back {

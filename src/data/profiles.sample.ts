@@ -2,6 +2,11 @@ export const SampleProfiles = [
   {
     _id: "61ae0aa00a5b5860643ea3ea",
     name: "Stuff",
+    authorized: [
+      "http://coodos.co",
+      "http://dogecoin.org",
+      "https://dogewhales.org",
+    ],
     creds: [
       {
         vc: {

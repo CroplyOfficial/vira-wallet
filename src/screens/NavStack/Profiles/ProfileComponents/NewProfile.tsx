@@ -12,9 +12,10 @@ interface INewProfileProps {
   setIsAdding: (adding: boolean) => void;
   url: string;
   token: string;
+  updateList: () => any;
 }
 export const NewProfile = (props: INewProfileProps) => {
-  const { setIsAdding, url, token } = props;
+  const { setIsAdding, url, token, updateList } = props;
   const [profileName, setProfileName] = useState<string>();
   const [verifiableCreds, setVerifiableCreds] = useState<any>();
   const [selectedCreds, setSelectedCreds] = useState<any[]>([]);
@@ -60,6 +61,7 @@ export const NewProfile = (props: INewProfileProps) => {
         setIsAdding(false);
       }
     }
+    updateList();
   };
 
   useEffect(() => {
@@ -67,14 +69,14 @@ export const NewProfile = (props: INewProfileProps) => {
   }, []);
 
   return (
-    <Card>
+    <Card extend={true}>
       <div className="new-profile">
         <Back
           color={"white"}
           className="new-profile-back"
           onClick={() => setIsAdding(false)}
         />
-        <h2>New Profile</h2>
+        <div className="profile-header">New Profile</div>
         <InputField
           placeholder="Profile Name"
           value={profileName}

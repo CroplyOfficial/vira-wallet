@@ -15,7 +15,7 @@ export const SetupAccount = (props: IArgs) => {
 
   return (
     <React.Fragment>
-      <Card>
+      <Card extend={true}>
         <h2>Setup Cloudvault</h2>
         <InputField
           placeholder={"Username"}

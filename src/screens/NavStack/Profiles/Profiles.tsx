@@ -16,7 +16,7 @@ import "./Profiles.scss";
 export const Profiles = () => {
   const [url, setUrl] = useState<string>();
   const [appToken, setToken] = useState<string>();
-  const [isConfigured, setConfigured] = useState<boolean>(false);
+  const [isConfigured, setConfigured] = useState<boolean>(true);
   const [isConfiguring, setConfiguring] = useState<boolean>(false);
   const [isAddingProfile, setAddingProfile] = useState<boolean>(false);
   const [selectedProfile, setSelectedProfile] = useState<IProfileType>();
@@ -64,7 +64,33 @@ export const Profiles = () => {
         },
       }
     );
-    checkProfiles();
+    const updatedProfiles = await checkProfiles();
+
+    const updatedProfile = updatedProfiles.find(
+      (prof) => prof._id === selectedProfile._id
+    );
+
+    setSelectedProfile(() => updatedProfile);
+  };
+
+  const updateProfile = async (profConf: Partial<IProfileType>) => {
+    const { data } = await axios.patch(
+      `${url}/api/profiles/${selectedProfile._id}`,
+      profConf,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${appToken}`,
+        },
+      }
+    );
+    const updatedProfiles = await checkProfiles();
+
+    const updatedProfile = updatedProfiles.find(
+      (prof) => prof._id === selectedProfile._id
+    );
+
+    setSelectedProfile(() => updatedProfile);
   };
 
   const startScan = async () => {
@@ -87,6 +113,8 @@ export const Profiles = () => {
       },
     });
     setProfiles(() => data);
+
+    return data;
   };
 
   useEffect(() => {
@@ -101,7 +129,13 @@ export const Profiles = () => {
       setUrl(() => url);
       setToken(() => token);
 
-      checkProfiles();
+      const { data } = await axios.get(`${url}/api/profiles`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProfiles(() => data);
     };
 
     checkForConfig();
@@ -118,6 +152,7 @@ export const Profiles = () => {
                   token={appToken}
                   url={url}
                   setIsAdding={setAddingProfile}
+                  updateList={checkProfiles}
                 />
               )}
             </React.Fragment>
@@ -128,10 +163,11 @@ export const Profiles = () => {
                   profile={selectedProfile}
                   setSelected={setSelectedProfile}
                   updateProfile={updateProfileCredentials}
+                  updateDomains={updateProfile}
                 />
               ) : (
                 <ProfilesList
-                  profiles={profiles}
+                  profiles={SampleProfiles}
                   setIsAdding={setAddingProfile}
                   setSelected={setSelectedProfile}
                 />

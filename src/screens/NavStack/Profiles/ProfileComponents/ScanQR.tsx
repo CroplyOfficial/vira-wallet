@@ -9,7 +9,7 @@ export const ScanQR = (props: IArgs) => {
 
   return (
     <React.Fragment>
-      <Card>
+      <Card extend={true}>
         <h2>Setup Cloudvault</h2>
         <p>
           If you do not have a cloudvault running yet visit the repo and spin up

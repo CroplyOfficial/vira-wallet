@@ -6,5 +6,6 @@ export interface ICredConfig {
 export interface IProfileType {
   _id: string;
   name: string;
+  authorized: string[];
   creds: ICredConfig[];
 }
