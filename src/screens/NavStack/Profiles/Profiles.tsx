@@ -9,14 +9,13 @@ import { ProfilesList } from "./ProfileComponents/ProfilesList";
 import { NewProfile } from "./ProfileComponents/NewProfile";
 import { ICredConfig, IProfileType } from "../../../types/profile.interface";
 import { ProfileView } from "./ProfileComponents/ProfileView";
-import { SampleProfiles } from "../../../data/profiles.sample";
 import axios from "axios";
 import "./Profiles.scss";
 
 export const Profiles = () => {
   const [url, setUrl] = useState<string>();
   const [appToken, setToken] = useState<string>();
-  const [isConfigured, setConfigured] = useState<boolean>(true);
+  const [isConfigured, setConfigured] = useState<boolean>(false);
   const [isConfiguring, setConfiguring] = useState<boolean>(false);
   const [isAddingProfile, setAddingProfile] = useState<boolean>(false);
   const [selectedProfile, setSelectedProfile] = useState<IProfileType>();
@@ -167,7 +166,7 @@ export const Profiles = () => {
                 />
               ) : (
                 <ProfilesList
-                  profiles={SampleProfiles}
+                  profiles={profiles}
                   setIsAdding={setAddingProfile}
                   setSelected={setSelectedProfile}
                 />
