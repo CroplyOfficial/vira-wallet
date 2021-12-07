@@ -9,7 +9,6 @@ import {
 } from "../../../../components/assets/icons";
 import { InputField } from "../../../../components/ui/inputField/InputField";
 import { Show, Hide } from "../../../../components/assets/icons";
-import axios from "axios";
 
 interface IProfileViewProps {
   profile: IProfileType;
@@ -69,6 +68,7 @@ export const ProfileView = (props: IProfileViewProps) => {
   const handleDomainUpdate = async () => {
     const data = { name: domainName, authorized: domains };
     updateDomains(data);
+    setEditing(() => false);
   };
 
   const handleSave = () => {
